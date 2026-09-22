@@ -6,39 +6,26 @@ import (
 	"encoding/xml"
 	"fmt"
 	"os/exec"
-	"path/filepath"
 	"strings"
 	"syscall"
 
-	"github.com/vishwaszadte/ding/pkg/assets"
 	"github.com/vishwaszadte/ding/pkg/model"
 )
 
-type windowsNotifier struct {
-	iconPath string
-}
+type windowsNotifier struct{}
 
 func newPlatformNotifier() (Notifier, error) {
-	icon, _, _ := assets.EnsureAssetsWritten()
-	return &windowsNotifier{
-		iconPath: icon,
-	}, nil
+	return &windowsNotifier{}, nil
 }
 
-// Send displays a modern Windows 10/11 WinRT toast notification using Fluent Design XML.
+// Send displays a clean, modern Windows 10/11 WinRT toast notification with the 🔔 bell emoji in the title.
 func (w *windowsNotifier) Send(n Notification) error {
 	if n.Title == "" {
-		n.Title = "🔔 Reminder"
+		n.Title = "Reminder"
 	}
-	if !strings.HasPrefix(n.Title, "🔔") && !strings.HasPrefix(n.Title, "⏰") {
+	if !strings.HasPrefix(n.Title, "🔔") {
 		n.Title = "🔔 " + n.Title
 	}
-
-	icon := n.IconPath
-	if icon == "" {
-		icon = w.iconPath
-	}
-	iconURI := "file:///" + filepath.ToSlash(icon)
 
 	attrib := n.Attribution
 	if attrib == "" {
@@ -66,7 +53,6 @@ func (w *windowsNotifier) Send(n Notification) error {
 <toast scenario="%s">
     <visual>
         <binding template="ToastGeneric">
-            <image placement="appLogoOverride" src="%s" />
             <text hint-style="title">%s</text>
             <text hint-style="body">%s</text>
             <text hint-style="attribution">%s</text>
@@ -76,7 +62,7 @@ func (w *windowsNotifier) Send(n Notification) error {
     <actions>
         <action content="Dismiss" arguments="dismiss" activationType="system" />
     </actions>
-</toast>`, scenario, iconURI, titleEscaped.String(), bodyEscaped.String(), attribEscaped.String(), audioXML)
+</toast>`, scenario, titleEscaped.String(), bodyEscaped.String(), attribEscaped.String(), audioXML)
 
 	// PowerShell WinRT ToastNotificationManager script
 	psScript := fmt.Sprintf(`
