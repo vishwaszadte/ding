@@ -66,7 +66,7 @@ func (w *windowsNotifier) Send(n Notification) error {
 <toast scenario="%s">
     <visual>
         <binding template="ToastGeneric">
-            <image placement="appLogoOverride" hint-crop="circle" src="%s" />
+            <image placement="appLogoOverride" src="%s" />
             <text hint-style="title">%s</text>
             <text hint-style="body">%s</text>
             <text hint-style="attribution">%s</text>
