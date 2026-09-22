@@ -25,8 +25,8 @@ var (
 
 var rootCmd = &cobra.Command{
 	Use:   "ding [time-expression] [message]",
-	Short: "🔔 ding: Aesthetic cross-platform scheduled desktop notifications",
-	Long: `ding is a modern, cross-platform CLI tool for scheduling aesthetic desktop notifications.
+	Short: "🔔 ding: Cross-platform scheduled desktop notifications",
+	Long: `ding is a modern, cross-platform CLI tool for scheduling desktop notifications.
 
 Examples:
   ding every hour --message "get up and walk"

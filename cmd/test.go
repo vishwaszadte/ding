@@ -17,7 +17,7 @@ var (
 
 var testCmd = &cobra.Command{
 	Use:   "test",
-	Short: "Send an immediate aesthetic notification to test your OS desktop notifications and sound",
+	Short: "Send an immediate notification to test your OS desktop notifications and sound",
 	RunE: func(cmd *cobra.Command, args []string) error {
 		notifier, err := notify.NewNotifier()
 		if err != nil {

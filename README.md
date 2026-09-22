@@ -1,6 +1,6 @@
 # 🔔 ding
 
-> **Aesthetic, modern, cross-platform scheduled desktop notifications from your terminal.**
+> **Modern, cross-platform scheduled desktop notifications from your terminal.**
 
 `ding` is a fast, zero-dependency CLI written in Go that delivers rich desktop notifications across **Windows, macOS, and Linux**. It features natural language scheduling, an auto-starting background daemon, pure-Go SQLite persistence, and modern Fluent/WinRT desktop alerts.
 
