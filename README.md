@@ -84,7 +84,7 @@ ding doctor     # Health check (database, background daemon, notification subsys
 
 ## ⚙️ Daemon Management
 
-You never need to start the daemon manually—**`ding` auto-spawns it in the background the first time you schedule a reminder**.
+You never need to start the daemon manually: **`ding` auto-spawns it in the background the first time you schedule a reminder**.
 
 However, you can also control it directly:
 ```bash
@@ -92,6 +92,40 @@ ding daemon status   # Check if background daemon is active and show PID
 ding daemon stop     # Stop the background process
 ding daemon start    # Start the daemon in the background
 ding daemon logs     # Tail background scheduler logs
+```
+
+---
+
+## 🧠 How It Works Under the Hood
+
+---
+
+## 🗑️ Uninstallation
+
+If you ever wish to completely remove `ding` and its data from your system:
+
+### Windows (PowerShell)
+```powershell
+# 1. Stop background daemon
+ding daemon stop
+
+# 2. Remove binary executable
+Remove-Item -Recurse -Force "$env:LOCALAPPDATA\Programs\ding"
+
+# 3. (Optional) Remove data & database
+Remove-Item -Recurse -Force "$HOME\.ding"
+```
+
+### macOS & Linux
+```bash
+# 1. Stop background daemon
+ding daemon stop
+
+# 2. Remove binary executable
+rm -f "$HOME/.local/bin/ding"
+
+# 3. (Optional) Remove data & database
+rm -rf "$HOME/.ding"
 ```
 
 ---
@@ -120,7 +154,7 @@ ding daemon logs     # Tail background scheduler logs
                               │ • Windows: WinRT Fluent Toast XML      │
                               │ • macOS: Notification Center           │
                               │ • Linux: D-Bus / libnotify             │
-                              │ • Embedded chime audio & app icon      │
+                              │ • Native OS chime & 🔔 bell emoji      │
                               └────────────────────────────────────────┘
 ```
 
