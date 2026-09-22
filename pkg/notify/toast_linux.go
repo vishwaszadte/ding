@@ -7,17 +7,13 @@ import (
 	"os/exec"
 	"strings"
 
-	"github.com/vishwaszadte/ding/pkg/assets"
 	"github.com/vishwaszadte/ding/pkg/model"
 )
 
-type linuxNotifier struct {
-	iconPath string
-}
+type linuxNotifier struct{}
 
 func newPlatformNotifier() (Notifier, error) {
-	icon, _, _ := assets.EnsureAssetsWritten()
-	return &linuxNotifier{iconPath: icon}, nil
+	return &linuxNotifier{}, nil
 }
 
 func (l *linuxNotifier) Send(n Notification) error {
@@ -38,10 +34,6 @@ func (l *linuxNotifier) Send(n Notification) error {
 	args := []string{
 		"-u", urgency,
 		"-a", "ding",
-	}
-
-	if l.iconPath != "" {
-		args = append(args, "-i", l.iconPath)
 	}
 
 	body := n.Message

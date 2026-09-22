@@ -6,17 +6,12 @@ import (
 	"fmt"
 	"os/exec"
 	"strings"
-
-	"github.com/vishwaszadte/ding/pkg/assets"
 )
 
-type darwinNotifier struct {
-	iconPath string
-}
+type darwinNotifier struct{}
 
 func newPlatformNotifier() (Notifier, error) {
-	icon, _, _ := assets.EnsureAssetsWritten()
-	return &darwinNotifier{iconPath: icon}, nil
+	return &darwinNotifier{}, nil
 }
 
 func (d *darwinNotifier) Send(n Notification) error {
